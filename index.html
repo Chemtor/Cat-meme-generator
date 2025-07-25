@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Meme Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .meme-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .meme-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .top-text {
+            top: 10px;
+        }
+        .bottom-text {
+            bottom: 10px;
+        }
+        .meme-image {
+            border-radius: 10px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+        .meme-image:hover {
+            transform: scale(1.02);
+        }
+        .download-btn {
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen py-10">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bold text-center mb-2 text-indigo-600">
+            <i class="fas fa-cat mr-2"></i> Cat Meme Generator
+        </h1>
+        <p class="text-center text-gray-600 mb-10">Create your own hilarious cat memes!</p>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 max-w-2xl mx-auto">
+            <div class="meme-container mb-6">
+                <img id="meme-image" src="https://cataas.com/cat" alt="Random cat" class="meme-image w-full h-auto">
+                <div id="top-text" class="meme-text top-text">WHEN YOU SEE</div>
+                <div id="bottom-text" class="meme-text bottom-text">THE LAST SLICE OF PIZZA</div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label for="top-text-input" class="block text-sm font-medium text-gray-700 mb-1">Top Text</label>
+                    <input type="text" id="top-text-input" value="WHEN YOU SEE" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="bottom-text-input" class="block text-sm font-medium text-gray-700 mb-1">Bottom Text</label>
+                    <input type="text" id="bottom-text-input" value="THE LAST SLICE OF PIZZA" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap gap-3 justify-center">
+                <button onclick="updateMeme()" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
+                    <i class="fas fa-sync-alt mr-2"></i> Update Meme
+                </button>
+                <button onclick="newCat()" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
+                    <i class="fas fa-random mr-2"></i> New Cat Image
+                </button>
+                <button onclick="downloadMeme()" class="download-btn px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition">
+                    <i class="fas fa-download mr-2"></i> Download Meme
+                </button>
+            </div>
+        </div>
+        
+        <div class="mt-10 text-center text-gray-500">
+            <p>Made with <i class="fas fa-heart text-red-500"></i> for cat lovers</p>
+        </div>
+    </div>
+
+    <script>
+        function updateMeme() {
+            const topText = document.getElementById('top-text-input').value;
+            const bottomText = document.getElementById('bottom-text-input').value;
+            
+            document.getElementById('top-text').textContent = topText;
+            document.getElementById('bottom-text').textContent = bottomText;
+        }
+        
+        function newCat() {
+            // Add a random parameter to prevent caching
+            const randomParam = Math.floor(Math.random() * 10000);
+            document.getElementById('meme-image').src = `https://cataas.com/cat?${randomParam}`;
+        }
+        
+        function downloadMeme() {
+            alert("Meme downloaded! (This is a demo - in a real app, this would save the image)");
+            // In a real implementation, you would use html2canvas or similar library to actually download the meme
+        }
+        
+        // Initialize meme with default values
+        document.addEventListener('DOMContentLoaded', function() {
+            updateMeme();
+        });
+    </script>
+</body>
+</html>
